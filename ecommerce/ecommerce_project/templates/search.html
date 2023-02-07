@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+  here you have variety of products... - ABC Shop
+{% endblock %}
+
+{% block title %}
+  See our New Collections - ABC Shop
+{% endblock %}
+
+{% block content %}
+<div>
+  <p class="text-center" style="padding-top: 20px;">Showing results for <strong>"{{query}}"</strong></p>
+</div>
+<div class="container">
+    <div class="row" style="color: #000;font-size: 12px">
+        {% for product in products %}
+        <div class="col-9 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+            <div class="card text-center" style="width: 18rem; height: auto;">
+                <a href="{{product.get_url}}"><img class="card-img-top" style="width: 100%;height: auto;" src="{{product.image.url}}" alt="{{product.name}}"></a>
+                <div class="card-body">
+                    <h4 style="font-size: 14px;text-transform: uppercase;letter-spacing: 0.1em;">{{product.name}}</h4>
+                    <p>&nbsp;<strong>&#8377;{{product.price}}</strong></p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="row" style="color: #000;font-size: 16px;">
+            <p class="text-center" style="padding-top: 20px;padding-left: 30px;font-size: 25px;">Sorry, no results found!</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

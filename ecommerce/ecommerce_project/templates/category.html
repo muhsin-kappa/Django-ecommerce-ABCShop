@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {% if category %}
+        {{ category.description|truncatewords:150 }}
+    {% else %}
+        Welcome to ABC Shop where you can buy different items....
+    {% endif %}
+{% endblock %}
+
+{% block title %}
+    {% if category %}
+        {{ category.name }} - ABC Shop
+    {% else %}
+        See our New Collections - ABC Shop
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+{% if category %}
+    <div>
+      <div class="row" style="padding-top: 15px;">
+          <div style="color: #000;font-size: 12px">
+            <p><a style="text-decoration: none;" href="{% url 'shop_app:allProductCat' %}">Our Collections</a></p>
+          </div>
+      </div>
+    </div>
+{% endif %}
+
+<div style="color: #000;font-size: 12px">
+    {% if category %}
+    <img style="width: 10%;height: auto;" src="{{category.image.url}}" alt="{{category.name}}">
+</div>
+<br>
+<div>
+    <h1 class="text-center" style="font-size: 16px;text-transform: uppercase;letter-spacing: 0.1em;font-weight: bolder;">{{category.name}}</h1>
+    <p class="text-justify">{{category.description}}</p>
+</div>
+<div>
+    {% else %}
+    <img class="container-fluid" style="width: 100%;height: auto;padding: 5px;" src="{% static 'image/banner3.png' %}" alt="our products" width="auto">
+</div>
+    <br>
+<div>
+    <h1 class="text-center" style="font-size: 16px;text-transform: uppercase;letter-spacing: 0.1em;font-weight: bolder;">Our products collections</h1>
+    <p class="text-justify">Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.</p>
+</div>
+    {% endif %}
+
+<div class="container">
+    <div class="row" style="color: #000;font-size: 12px">
+        {% for product in products.object_list %}
+        <div class="col-9 col-sm-12 col-md-4 col-lg-4" style="margin-bottom: 10px;">
+            <div class="card text-center" style="width: 18rem; height: auto;">
+                <a href="{{product.get_url}}"><img class="card-img-top" style="width: 100%;height: auto;" src="{{product.image.url}}" alt="{{product.name}}"></a>
+                <div class="card-body">
+                    <h4 style="font-size: 14px;text-transform: uppercase;letter-spacing: 0.1em;">{{product.name}}</h4>
+                    <p>&nbsp;<strong>&#8377;{{product.price}}</strong></p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+        {% if products.paginator.num_pages > 1 %}
+        <hr>
+        <div class="text-center">
+            {% for page in products.paginator.page_range %}
+            <a href="?page={{page}}" class="btn btn-light btn-sm {% if products.number == page %} active {% endif %}">{{page}}</a>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

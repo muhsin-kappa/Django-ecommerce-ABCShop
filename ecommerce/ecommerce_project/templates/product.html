@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block metadescription %}
+    {{ product.description|truncatewords:150 }}
+{% endblock %}
+
+{% block title %}
+    {{ product.name }} - ABC Shop
+{% endblock %}
+
+{% block content %}
+
+<div class="row" style="padding-top: 15px;padding-bottom: 15px;">
+    <div style="color: #000;font-size: 12px;">
+        <p> <a style="text-decoration: none;" href="{% url 'shop_app:allProductCat' %}">Home</a> > <a style="text-decoration: none;" href="{{product.category.get_url}}">{{product.category}}</a> > {{product.name}}</p>
+    </div>
+</div>
+<div class="container">
+<br>
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6 text-center">
+            <div style="min-width: 18rem;">
+                <img src="{{product.image.url}}" alt="{{product.name}}" style="width: 50%;height: auto;">
+            </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <h1 style="font-size: 16px;text-transform: uppercase;letter-spacing: 0.1em;padding-top: 15px;padding-bottom: 10px;">{{product.name}}</h1>
+            <p> &nbsp;<strong>&#8377;{{product.price}}</strong></p>
+            <p style="font-size: 16px;text-transform: uppercase;letter-spacing: 0.1em;font-weight: bolder;">Product Description</p>
+            <p class="text-justify" style="padding-right: 20px">{{product.description}}</p>
+            {% if product.stock <= 0 %}
+            <p class="text-justify" style="padding-right: 20px"><b>Out of Stock</b></p>
+            {% else %}
+            <a class="btn btn-secondary" href="{% url 'cart_app:add_cart' product.id %}"><b>Add to Cart</b></a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

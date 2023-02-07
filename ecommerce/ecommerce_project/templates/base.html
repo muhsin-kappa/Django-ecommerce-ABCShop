@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{% block metadescription %}{% endblock %}">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="shortcut icon" href="{% static 'image/logo.png' %}" type="image/x-icon">
+<!--    <script src="https://kit.fontawesome.com/a076d05399.js"></script>-->
+    <script src="https://kit.fontawesome.com/ef23d5943b.js" crossorigin="anonymous"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500&display=swap');
+    </style>
+</head>
+<body>
+<div>
+{% include 'header.html' %}
+{% include 'navbar.html' %}
+{% block content %}
+{% endblock %}
+</div>
+{% include 'footer.html' %}
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
